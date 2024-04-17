@@ -1,0 +1,56 @@
+---
+name: 'Pantheon WordPress Deploy Action'
+description: 'Deploys a WordPress site to Pantheon'
+author: 10up
+inputs:
+  pantheon_git_url: 
+    description: 'Pantheon GIT URL'
+    required: true
+  multidev_env_name:
+    description: 'Multidev environment name'
+    required: false
+  working_dir:
+    description: 'Directory containing the WordPress built site'
+    required: false
+  site_name:
+    description: 'Pantheon site name'
+    required: false
+  terminus_token:
+    description: 'Terminus CLI token'
+    required: false
+  ssh_private_key:
+    description: 'SSH key for git access'
+    required: true
+  wordpress_version:
+    description: 'WordPress version to fetch into the site before pushing to Pantheon'
+    required: true
+  root_files:
+    description: 'Files to copy in the WordPress root directory'
+    required: false
+  git_user_name:
+    description: 'GIT user name needed to pull and push the Pantheon'
+    required: false
+    default: '10upbot'
+  git_user_email:
+    description: 'GIT user email address needed to pull and push the Pantheon'
+    required: false
+    default: '10upbot+github@10up.com'
+  promote_test_to_live:
+    description: 'Backup Pantheon Live site and promote Test to Live'
+    required: false
+    default: 'no'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.pantheon_git_url }}
+    - ${{ inputs.multidev_env_name }}
+    - ${{ inputs.working_dir }}
+    - ${{ inputs.site_name }}
+    - ${{ inputs.terminus_token }}
+    - ${{ inputs.ssh_private_key }}
+    - ${{ inputs.wordpress_version }}
+    - ${{ inputs.root_files }}
+    - ${{ inputs.git_user_name }}
+    - ${{ inputs.git_user_email }}
+    - ${{ inputs.promote_test_to_live }}
