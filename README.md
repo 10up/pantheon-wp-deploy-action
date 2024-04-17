@@ -1,6 +1,5 @@
 # Pantheon WordPress Deploy Action
 
-This Github action follows 10up's best practices for deploying WordPress sites to [Pantheon](https://pantheon.io/product/wordpress-hosting).
 [Pantheon](https://pantheon.io/product/wordpress-hosting) has its own deployment workflow called "WebOps" which is based around a unique, git-driven infrastructure. All environments on Pantheon are version-controlled with git, this includes WordPress core, plugins, themes, etc. Pantheon's `master` branch is tied to the `Dev` environment, from there you need to manually(from the dashboard or via the Terminus CLI) promote the content to Pantheon's `Test` environment and ultimately to the `Live` site which is the production environment. At 10up, the code in the git's main branch is production ready(preprod and production environments only) therefore our preferred deployment workflow for Github + Pantheon sites is:
 * Use Pantheon multidev environments for the project's lower environments(dev, staging, etc.) and create a Github branch with the same name as the multidev environment to automatically deploy to them
 * The Github main branch deploys to the Pantheon's `Dev` environment but automatically promotes the code to the Pantheon `Test` environment
