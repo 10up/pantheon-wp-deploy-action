@@ -1,5 +1,5 @@
 ---
-name: Build and publish image to Docker Hub
+name: Build and publish image to Github Packages
 on:
   release:
     types:
@@ -43,6 +43,5 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: image
-          file: Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
