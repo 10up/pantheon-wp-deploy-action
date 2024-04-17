@@ -41,7 +41,7 @@ inputs:
     default: 'no'
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  image: 'docker://ghcr.io/10up/pantheon-wp-deploy-action:latest'
   args:
     - ${{ inputs.pantheon_git_url }}
     - ${{ inputs.multidev_env_name }}
