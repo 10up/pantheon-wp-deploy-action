@@ -2,6 +2,9 @@
 name: 'Pantheon WordPress Deploy Action'
 description: 'Deploys a WordPress site to Pantheon'
 author: 10up
+branding:
+  icon: 'upload-cloud'
+  color: 'blue'
 inputs:
   pantheon_git_url: 
     description: 'Pantheon GIT URL'
