@@ -1,5 +1,9 @@
 # Pantheon WordPress Deploy Action
 
+> Deploy WordPress sites to Pantheon
+
+[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Release Version](https://img.shields.io/github/release/10up/pantheon-wp-deploy-action.svg)](https://github.com/10up/pantheon-wp-deploy-action/releases/latest) [![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://github.com/10up/pantheon-wp-deploy-action/blob/trunk/LICENSE) [![Automated Tests](https://github.com/10up/pantheon-wp-deploy-action/actions/workflows/test.yml/badge.svg)](https://github.com/10up/pantheon-wp-deploy-action/actions/workflows/test.yml)
+
 [Pantheon](https://pantheon.io/product/wordpress-hosting) has its own deployment workflow called "WebOps" which is based around a unique, git-driven infrastructure. All environments on Pantheon are version-controlled with git, this includes WordPress core, plugins, themes, etc. Pantheon's `master` branch is tied to the `Dev` environment, from there you need to manually(from the dashboard or via the Terminus CLI) promote the content to Pantheon's `Test` environment and ultimately to the `Live` site which is the production environment. At 10up, the code in the git's main branch is production ready(preprod and production environments only) therefore our preferred deployment workflow for Github + Pantheon sites is:
 * Use Pantheon multidev environments for the project's lower environments(dev, staging, etc.) and create a Github branch with the same name as the multidev environment to automatically deploy to them
 * The Github main branch deploys to the Pantheon's `Dev` environment but automatically promotes the code to the Pantheon `Test` environment
@@ -171,3 +175,21 @@ jobs:
           site_name: "my-pantheon-site"
           promote_test_to_live: "yes"
 ```
+
+## Support Level
+
+**Active:** 10up is actively working on this, and we expect to continue work for the foreseeable. Bug reports, feature requests, questions, and pull requests are welcome.
+
+## Changelog
+
+A complete listing of all notable changes to ElasticPress Labs are documented in [CHANGELOG.md](https://github.com/10up/pantheon-wp-deploy-action/blob/trunk/CHANGELOG.md).
+
+## Contributing
+
+Please read [CODE_OF_CONDUCT.md](https://github.com/10up/pantheon-wp-deploy-action/blob/trunk/CODE_OF_CONDUCT.md) for details on our code of conduct, [CONTRIBUTING.md](https://github.com/10up/pantheon-wp-deploy-action/blob/trunk/CONTRIBUTING.md) for details on the process for submitting pull requests to us, and [CREDITS.md](https://github.com/10up/pantheon-wp-deploy-action/blob/trunk/CREDITS.md) for a listing of maintainers and contributors.
+
+## Like what you see?
+
+<p align="center">
+<a href="http://10up.com/contact/"><img src="https://10up.com/uploads/2016/10/10up-Github-Banner.png" width="850"></a>
+</p>

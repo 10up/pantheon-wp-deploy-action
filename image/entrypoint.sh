@@ -5,7 +5,7 @@ set -eo pipefail
 # Backup Pantheon Live site and promote Test to Live if `promote_test_to_live` is set to 'yes', `workflow_dispatch`
 # is used to manually trigger the action and the action runs from the main branch; then exits (Do not perform any of the other steps).
 # `promote_test_to_live` is a string type variable so the value must match exactly
-if [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ] && [ "${INPUT_PROMOTE_TEST_TO_LIVE}" = "yes" ] && ([ "${GITHUB_REF}" = "trunk" ] || [ "${GITHUB_REF}" = "master" ] || [ "${GITHUB_REF}" = "main" ] || [ "${GITHUB_REF}" = "production" ]); then
+if [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ] && [ "${INPUT_PROMOTE_TEST_TO_LIVE}" = "yes" ] && { [ "${GITHUB_REF}" = "trunk" ] || [ "${GITHUB_REF}" = "master" ] || [ "${GITHUB_REF}" = "main" ] || [ "${GITHUB_REF}" = "production" ]; }; then
   if [ -z "${INPUT_SITE_NAME}" ]; then
     echo "The site_name input is not defined. Exiting..."
     exit 1
@@ -16,14 +16,14 @@ if [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ] && [ "${INPUT_PROMOTE_TEST_T
   fi
 
   echo "Backing up ${INPUT_SITE_NAME}.live before deploying"
-  terminus -y backup:create --element code ${INPUT_SITE_NAME}.live
-  terminus -y backup:create --element database ${INPUT_SITE_NAME}.live
+  terminus -y backup:create --element code "${INPUT_SITE_NAME}".live
+  terminus -y backup:create --element database "${INPUT_SITE_NAME}".live
 
   echo "Deploying to ${INPUT_SITE_NAME}.live"
-  terminus -y env:deploy ${INPUT_SITE_NAME}.live
+  terminus -y env:deploy "${INPUT_SITE_NAME}".live
 
   echo "Deploy complete, clearing cache on ${INPUT_SITE_NAME}.live"  
-  terminus -y env:clear-cache ${INPUT_SITE_NAME}.live
+  terminus -y env:clear-cache "${INPUT_SITE_NAME}".live
 
   exit 0
 fi
@@ -32,7 +32,7 @@ fi
 mkdir -p  "${HOME}"/.ssh
 echo "${INPUT_SSH_PRIVATE_KEY}" > "${HOME}"/.ssh/id_rsa
 chmod 400 "${HOME}"/.ssh/id_rsa
-GIT_SSH_COMMAND="ssh -i ${HOME}/.ssh/id_rsa -F /dev/null -o StrictHostKeyChecking=no"
+export GIT_SSH_COMMAND="ssh -i ${HOME}/.ssh/id_rsa -F /dev/null -o StrictHostKeyChecking=no"
 
 # Configure git
 git config --global user.email "${INPUT_GIT_USER_EMAIL}"
@@ -65,7 +65,7 @@ else
   RSYNC_SOURCE_DIR="${INPUT_WORKING_DIR}"
 fi
 
-rsync -vrxc --delete --force ${RSYNC_SOURCE_DIR}/wp-content/ /tmp/site/wp-content/ \
+rsync -vrxc --delete --force "${RSYNC_SOURCE_DIR}"/wp-content/ /tmp/site/wp-content/ \
   --exclude=uploads \
   --exclude=mu-plugins/pantheon* \
   --exclude=wp-content/db.php \
@@ -80,7 +80,7 @@ rsync -vrxc --delete --force ${RSYNC_SOURCE_DIR}/wp-content/ /tmp/site/wp-conten
       exit 1
     fi
     echo "Sending $FILE..."
-    rsync -vrxc ${RSYNC_SOURCE_DIR}/"${FILE}" /tmp/site/"${FILE}"
+    rsync -vrxc "${RSYNC_SOURCE_DIR}"/"${FILE}" /tmp/site/"${FILE}"
   done
 fi
 
@@ -106,7 +106,7 @@ git push origin "${INPUT_MULTIDEV_ENV_NAME:-master}"
 # Always promote the Pantheon's Dev environment to Test when deploying to Pantheon master
 # There is no Github variable that returns the main branch for a repository so we are
 # manually validating common names used for the main branch in a GIT repository.
-if [ -z "${INPUT_MULTIDEV_ENV_NAME}" ] && ([ "${GITHUB_REF}" = "trunk" ] || [ "${GITHUB_REF}" = "master" ] || [ "${GITHUB_REF}" = "main" ] || [ "${GITHUB_REF}" = "production" ]); then
+if [ -z "${INPUT_MULTIDEV_ENV_NAME}" ] && { [ "${GITHUB_REF}" = "trunk" ] || [ "${GITHUB_REF}" = "master" ] || [ "${GITHUB_REF}" = "main" ] || [ "${GITHUB_REF}" = "production" ]; }; then
   if [ -z "${INPUT_SITE_NAME}" ]; then
     echo "The site_name input is not defined. Promote the Dev environment to Test manually in the Pantheon dashboard. Exiting..."
     exit 1
