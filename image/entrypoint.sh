@@ -5,7 +5,7 @@ set -eo pipefail
 # Backup Pantheon Live site and promote Test to Live if `promote_test_to_live` is set to 'yes', `workflow_dispatch`
 # is used to manually trigger the action and the action runs from the main branch; then exits (Do not perform any of the other steps).
 # `promote_test_to_live` is a string type variable so the value must match exactly
-if [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ] && [ "${INPUT_PROMOTE_TEST_TO_LIVE}" = "yes" ] && { [ "${GITHUB_REF}" = "trunk" ] || [ "${GITHUB_REF}" = "master" ] || [ "${GITHUB_REF}" = "main" ] || [ "${GITHUB_REF}" = "production" ]; }; then
+if [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ] && [ "${INPUT_PROMOTE_TEST_TO_LIVE}" = "yes" ] && { [ "${GITHUB_REF_NAME}" = "trunk" ] || [ "${GITHUB_REF_NAME}" = "master" ] || [ "${GITHUB_REF_NAME}" = "main" ] || [ "${GITHUB_REF_NAME}" = "production" ]; }; then
   if [ -z "${INPUT_SITE_NAME}" ]; then
     echo "The site_name input is not defined. Exiting..."
     exit 1
@@ -44,9 +44,9 @@ git clone "${INPUT_PANTHEON_GIT_URL}" /tmp/site
 # Ensure only the main branch can deploy to Pantheon's `master` branch.
 # There is no Github variable that returns the main branch for a repository so we are
 # manually validating common names used for the main branch in a GIT repository.
-if [ "${GITHUB_REF}" != "trunk" ] && [ "${GITHUB_REF}" != "master" ] && [ "${GITHUB_REF}" != "main" ] && [ "${GITHUB_REF}" != "production" ]; then
+if [ "${GITHUB_REF_NAME}" != "trunk" ] && [ "${GITHUB_REF_NAME}" != "master" ] && [ "${GITHUB_REF_NAME}" != "main" ] && [ "${GITHUB_REF_NAME}" != "production" ]; then
   if [ -z "${INPUT_MULTIDEV_ENV_NAME}" ]; then
-    echo "The multidev_env_name input is not defined for the ${GITHUB_REF} branch. Only the main branch is allowed to deploy to Pantheon's dev environment"
+    echo "The multidev_env_name input is not defined for the ${GITHUB_REF_NAME} branch. Only the main branch is allowed to deploy to Pantheon's dev environment"
     exit 1
   else
     pushd /tmp/site || exit 1
@@ -105,7 +105,7 @@ git push origin "${INPUT_MULTIDEV_ENV_NAME:-master}"
 # Always promote the Pantheon's Dev environment to Test when deploying to Pantheon master
 # There is no Github variable that returns the main branch for a repository so we are
 # manually validating common names used for the main branch in a GIT repository.
-if [ -z "${INPUT_MULTIDEV_ENV_NAME}" ] && { [ "${GITHUB_REF}" = "trunk" ] || [ "${GITHUB_REF}" = "master" ] || [ "${GITHUB_REF}" = "main" ] || [ "${GITHUB_REF}" = "production" ]; }; then
+if [ -z "${INPUT_MULTIDEV_ENV_NAME}" ] && { [ "${GITHUB_REF_NAME}" = "trunk" ] || [ "${GITHUB_REF_NAME}" = "master" ] || [ "${GITHUB_REF_NAME}" = "main" ] || [ "${GITHUB_REF_NAME}" = "production" ]; }; then
   if [ -z "${INPUT_SITE_NAME}" ]; then
     echo "The site_name input is not defined. Promote the Dev environment to Test manually in the Pantheon dashboard. Exiting..."
     exit 1
