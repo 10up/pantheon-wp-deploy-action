@@ -32,7 +32,6 @@ fi
 mkdir -p  "${HOME}"/.ssh
 echo "${INPUT_SSH_PRIVATE_KEY}" > "${HOME}"/.ssh/id_rsa
 chmod 400 "${HOME}"/.ssh/id_rsa
-export GIT_SSH_COMMAND="ssh -i ${HOME}/.ssh/id_rsa -F /dev/null -o StrictHostKeyChecking=no"
 
 # Configure git
 git config --global user.email "${INPUT_GIT_USER_EMAIL}"

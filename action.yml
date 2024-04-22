@@ -45,6 +45,8 @@ inputs:
 runs:
   using: 'docker'
   image: 'docker://ghcr.io/10up/pantheon-wp-deploy-action:latest'
+  env:
+    GIT_SSH_COMMAND: "ssh -i ${HOME}/.ssh/id_rsa -F /dev/null -o StrictHostKeyChecking=no"
   args:
     - ${{ inputs.pantheon_git_url }}
     - ${{ inputs.multidev_env_name }}
