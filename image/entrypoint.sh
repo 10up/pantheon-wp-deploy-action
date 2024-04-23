@@ -16,6 +16,7 @@ if [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ] && [ "${INPUT_PROMOTE_TEST_T
   fi
 
   echo "Backing up ${INPUT_SITE_NAME}.live before deploying"
+  terminus auth:login --machine-token="${INPUT_TERMINUS_TOKEN}"
   terminus -y backup:create --element code "${INPUT_SITE_NAME}".live
   terminus -y backup:create --element database "${INPUT_SITE_NAME}".live
 
