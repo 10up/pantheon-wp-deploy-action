@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ### Changed
 
-- Remove `mu-plugins/pantheon*` from the `rsync` excludes in order to version control de Pantheon MU-Plugins (#12)
+- Remove `mu-plugins/pantheon*` from the `rsync` excludes in order to version control the Pantheon MU-Plugins (#12)
 
 ## [v1.0.0] - 2024-04-22
 
