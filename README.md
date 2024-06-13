@@ -164,8 +164,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Deploy to Pantheon
-      - name: Deploy to Pantheon
+      - name: Promote Test to Live
         uses: 10up/pantheon-wp-deploy-action@v1
         with:
           pantheon_git_url: "${{ secrets.PANTHEON_GIT_URL }}"
@@ -182,7 +181,7 @@ jobs:
 
 ## Changelog
 
-A complete listing of all notable changes to ElasticPress Labs are documented in [CHANGELOG.md](https://github.com/10up/pantheon-wp-deploy-action/blob/trunk/CHANGELOG.md).
+A complete listing of all notable changes to this Github Action are documented in [CHANGELOG.md](https://github.com/10up/pantheon-wp-deploy-action/blob/trunk/CHANGELOG.md).
 
 ## Contributing
 

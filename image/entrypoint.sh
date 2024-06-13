@@ -67,7 +67,6 @@ fi
 
 rsync -vrxc --delete --force "${RSYNC_SOURCE_DIR}"/wp-content/ /tmp/site/wp-content/ \
   --exclude=uploads \
-  --exclude=mu-plugins/pantheon* \
   --exclude=wp-content/db.php \
   --exclude=wp-content/pantheon.php
 
