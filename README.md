@@ -16,6 +16,7 @@
 * This Github action expects a payload/artifact containing a fully built WordPress site with the following structure:
   * WordPress root files at the top level. e.g. `pantheon.yml`, `wp-config.php`, etc
   * Plugins, MU Plugins, drop-in plugins, Themes, `vendor` directory and everything that should go inside the `wp-content` directory(excluding the `uploads` directory) in a folder with the same name
+  * Install the [Pantheon MU Plugin](https://github.com/pantheon-systems/pantheon-mu-plugin) in inside the `wp-content/mu-plugins` directory
 
 # Inputs
 
