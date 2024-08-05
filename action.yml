@@ -47,15 +47,3 @@ runs:
   image: 'docker://ghcr.io/10up/pantheon-wp-deploy-action:latest'
   env:
     GIT_SSH_COMMAND: "ssh -i ${HOME}/.ssh/id_rsa -F /dev/null -o StrictHostKeyChecking=no"
-  args:
-    - ${{ inputs.pantheon_git_url }}
-    - ${{ inputs.multidev_env_name }}
-    - ${{ inputs.working_dir }}
-    - ${{ inputs.site_name }}
-    - ${{ inputs.terminus_token }}
-    - ${{ inputs.ssh_private_key }}
-    - ${{ inputs.wordpress_version }}
-    - ${{ inputs.root_files }}
-    - ${{ inputs.git_user_name }}
-    - ${{ inputs.git_user_email }}
-    - ${{ inputs.promote_test_to_live }}

@@ -8,7 +8,7 @@ LABEL "com.github.actions.icon"="send"
 LABEL "com.github.actions.color"="blue"
 
 LABEL maintainer="10upbot <10upbot+github@10up.com>"
-LABEL version="1.0.0"
+LABEL version="1.0.2"
 LABEL repository="https://github.com/10up/pantheon-wp-deploy-action"
 
 RUN apt-get update \
